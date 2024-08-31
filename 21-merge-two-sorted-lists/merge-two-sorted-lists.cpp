@@ -10,12 +10,34 @@
  */
 class Solution {
 public:
-    ListNode* mergeTwoLists(ListNode* list1, ListNode* list2){
-    if (!list1 || !list2)
-      return list1 ? list1 : list2;
-    if (list1->val > list2->val)
-      swap(list1, list2);
-    list1->next = mergeTwoLists(list1->next, list2);
-    return list1;
-  }
+    ListNode* mergeTwoLists(ListNode* left, ListNode* right){
+        // Base cases
+        if (left == 0) return right;
+        if (right == 0) return left;
+
+        // Dummy node to help easily build the merged list
+        ListNode* ans = new ListNode(-1);
+        ListNode* mptr = ans;
+
+        // Merge the two lists
+        while (left && right) {
+            if (left->val <= right->val) {
+                mptr->next = left;
+                left = left->next;
+            } else {
+                mptr->next = right;
+                right = right->next;
+            }
+            mptr = mptr->next; // Move mptr to the next node
+        }
+
+        // Attach the remaining part of the left or right list, if any
+        if (left) {
+            mptr->next = left;
+        } else {
+            mptr->next = right;
+        }
+
+        return ans->next; // Return the merged list starting from the next node after dummy
+    }
 };
