@@ -10,7 +10,7 @@ public:
             profit=max(profit,prices[i]-pricetobuy);
         }
         return profit;
-
+        
         
     }
 };
