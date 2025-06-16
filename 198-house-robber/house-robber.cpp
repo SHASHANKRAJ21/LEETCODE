@@ -1,30 +1,23 @@
 class Solution {
 public:
-    vector<int> memo;
-
-    int rob(vector<int>& nums) {
-        memo.resize(100, -1);
-
-        return robFrom(0, nums);
-    }
-
-private:
-    int robFrom(int i, vector<int>& nums) {
-        // No more houses left to examine.
-        if (i >= nums.size()) {
+    int t[101];
+    int solve(vector<int>& nums, int i, int n) {
+        if (i >= n) {
             return 0;
         }
-
-        // Return cached value.
-        if (memo[i] > -1) {
-            return memo[i];
+        if (t[i] != -1) {
+            return t[i];
+        }
+        int steal = nums[i] + solve(nums, i + 2, n);
+        int skip = solve(nums, i + 1, n);
+        return t[i] = max(steal, skip);
+    }
+    int rob(vector<int>& nums) {
+        int n = nums.size();
+        for (int i = 0; i <= 100; i++) {
+            t[i] = -1;
         }
 
-        // Recursive relation evaluation to get the optimal answer.
-        int ans = max(robFrom(i + 1, nums), robFrom(i + 2, nums) + nums[i]);
-
-        // Cache for future use.
-        memo[i] = ans;
-        return ans;
+        return solve(nums, 0, n);
     }
 };
