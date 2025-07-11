@@ -9,6 +9,6 @@ public:
             }
         }
 
-        return len;
+        return -1;
     }
 };
