@@ -3,20 +3,20 @@ public:
     string removeOuterParentheses(string s) {
         string result="";
         int open=0;
-        for(char c : s){
+        for(char c:s){
             if(c=='('){
                 if(open>0){
-                    result+="(";
+                    result+='(';
+
                 }
                 open++;
-            }
-            else{
+                
+            }else{
                 open--;
                 if(open>0){
-                    result+=")";
+                    result+=')';
                 }
             }
-
         }
         return result;
     }
