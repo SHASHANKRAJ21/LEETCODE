@@ -4,20 +4,21 @@ public:
         if(n==1){
             return "1";
         }
-        string result="";
-        char ch;
-        int count;
-        string say=countAndSay(n-1);
-        for(int i=0;i<say.length();i++){
-            ch=say[i];
-            count=1;
-            while(i<say.length()-1 && say[i]==say[i+1]){
-                count++;
-                i++;
+        string s="1";
+        for(int i=2;i<=n;i++){
+            string curr="";
+            int  count=1;
+            for(int j=1;j<s.size();j++){
+                if(s[j]==s[j-1]){
+                    count++;
+                }else{
+                    curr+=to_string(count) + s[j-1];
+                    count=1;
+                }
             }
-            result += to_string(count)+string(1,ch);
-
+            curr+=to_string(count) + s.back();
+            s=curr;
         }
-        return result;
+        return s;
     }
 };
